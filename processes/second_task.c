@@ -31,6 +31,10 @@ int main()
  scanf("%d", &(arg.input));
 
  status = ch_attr(&tattr);
+ if (status != 0)
+     {
+      printf("Can not change attributes\n");
+     }
  status = pthread_create(&thread, &tattr, sum, (void*) &arg);
  if (status != 0)
      {
@@ -74,9 +78,9 @@ int ch_attr(pthread_attr_t* attr)
  printf("please, enter a value: size of stack\n");
  scanf("%d", &(size));
  printf("bla");
- size = value;
- stackbase = (void*) malloc(size);
+ //size = value;
+ //stackbase = (void*) malloc(size);
  rv = pthread_attr_init(attr); // firstly set the default values
- rv = pthread_attr_setstack(attr,malloc(size), size);
+ rv = pthread_attr_setstack(attr,malloc(size), size);// void* malloc(size); 
  return SUCCESS;
 }

@@ -10,6 +10,7 @@ int main()
     int rv;
     int status1, status2;
     int stop;
+    int i=1;
         switch(pid1=fork()) 
        {
         case -1:
@@ -29,6 +30,7 @@ int main()
             waitpid(pid1, &status1,0);
             printf("PARENT: exit status of my child is %d\n",
                    WEXITSTATUS(rv));
+        }
             system("ls -l");
             switch(pid2=fork())
            {
@@ -38,14 +40,19 @@ int main()
             case 0:
                  printf("I will open a new terminal\n");
                  execl("/bin/bash", "bash", "-c", "gnome-terminal", (char *) 0);
+exit(0);
             default:
+                // int i=1;
                  waitpid(pid2, &status2, 0);
                  printf("parent of fork2");
                  setsid();
 		 daemon(0, 0);
                  printf("kill me, if you want, my pid is: %d\n", getpid());
 		 while (1)
-                    ;
+                     {
+                      printf("%d", i++);
+                      sleep(1);
+                     }
                        
             
             }
@@ -53,7 +60,7 @@ int main()
            //scanf("%c", &stop);
            //if ( stop=='y')
            //kill(, -9);
-       }
+       
 
     return 0;
 }
